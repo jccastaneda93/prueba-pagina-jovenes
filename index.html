@@ -3,1435 +3,804 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Aula Virtual de Seguridad Digital para Jóvenes - Aprende sobre ciudadanía digital, privacidad y ciberseguridad">
-    <title>CyberZone - Seguridad Digital para Jóvenes</title>
+    <title>CyberZone - Educación Digital</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #8b5cf6;
-            --secondary: #00d4ff;
-            --accent: #ff3e80;
-            --dark: #0f0f23;
-            --darker: #090915;
-            --light: #f0f4ff;
-            --card-bg: rgba(30, 30, 60, 0.7);
-            --text-muted: rgba(255, 255, 255, 0.7);
+            --primary-color: #00d4ff;
+            --secondary-color: #7b2cbf;
+            --accent-color: #ff006e;
+            --success-color: #10b981;
+            --bg-dark: #0a0e27;
+            --bg-card: rgba(15, 23, 42, 0.9);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
             
-            /* Spacing system */
             --spacing-xs: 8px;
             --spacing-sm: 16px;
             --spacing-md: 24px;
             --spacing-lg: 40px;
             
-            /* Transitions */
             --transition-fast: 0.2s ease;
             --transition-normal: 0.3s ease;
-            
-            /* Shadows */
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
-            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1a1a3e 100%);
-            min-height: 100vh;
-            color: var(--light);
+            background: var(--bg-dark);
+            color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Optimized background lights - REDUCED from 8 to 4 */
-        .lights-container {
+        /* Background Animations */
+        .background-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
             z-index: 0;
             pointer-events: none;
+            overflow: hidden;
         }
-        
+
         .light {
             position: absolute;
             border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.4;
-            will-change: transform, opacity;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            will-change: transform;
         }
-        
-        .light-1 {
-            width: 300px;
-            height: 300px;
-            background: var(--primary);
-            top: 10%;
-            left: 5%;
-            animation: pulse 8s infinite ease-in-out, moveX 25s infinite alternate ease-in-out;
-        }
-        
-        .light-2 {
+
+        .light1 {
             width: 400px;
             height: 400px;
-            background: var(--secondary);
-            top: 60%;
-            right: 10%;
-            animation: pulse 10s infinite ease-in-out, moveY 30s infinite alternate ease-in-out;
+            background: radial-gradient(circle, var(--primary-color), transparent);
+            top: 10%;
+            left: 10%;
+            animation: float1 8s infinite;
         }
-        
-        .light-3 {
-            width: 250px;
-            height: 250px;
-            background: var(--accent);
-            bottom: 10%;
-            left: 20%;
-            animation: pulse 12s infinite ease-in-out, moveXY 20s infinite alternate ease-in-out;
-        }
-        
-        .light-4 {
+
+        .light2 {
             width: 350px;
             height: 350px;
-            background: #ffd700;
-            top: 20%;
-            right: 20%;
-            animation: pulse 9s infinite ease-in-out, moveX 35s infinite alternate ease-in-out;
+            background: radial-gradient(circle, var(--secondary-color), transparent);
+            top: 60%;
+            right: 10%;
+            animation: float2 10s infinite;
         }
-        
-        /* Optimized animations using only transform and opacity */
-        @keyframes pulse {
-            0%, 100% { 
-                transform: scale(1); 
-                opacity: 0.3; 
-            } 
-            50% { 
-                transform: scale(1.2); 
-                opacity: 0.5; 
-            } 
+
+        .light3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent-color), transparent);
+            bottom: 20%;
+            left: 30%;
+            animation: float3 12s infinite;
         }
-        
-        @keyframes moveX {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(50px); }
+
+        .light4 {
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, var(--primary-color), transparent);
+            top: 40%;
+            right: 30%;
+            animation: float4 9s infinite;
         }
-        
-        @keyframes moveY {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50px); }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            25% { transform: translate(50px, -50px) scale(1.2); opacity: 0.7; }
+            50% { transform: translate(-30px, 30px) scale(0.9); opacity: 0.4; }
+            75% { transform: translate(30px, 50px) scale(1.1); opacity: 0.6; }
         }
-        
-        @keyframes moveXY {
-            0% { transform: translate(0, 0); }
-            25% { transform: translate(30px, 20px); }
-            50% { transform: translate(10px, 40px); }
-            75% { transform: translate(40px, 10px); }
-            100% { transform: translate(20px, 30px); }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            33% { transform: translate(-60px, 40px) scale(1.3); opacity: 0.7; }
+            66% { transform: translate(40px, -30px) scale(0.95); opacity: 0.4; }
         }
-        
-        /* Respect user's motion preferences */
-        @media (prefers-reduced-motion: reduce) {
-            .light,
-            .particle,
-            .emoji-animation,
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            25% { transform: translate(-40px, -60px) scale(1.2); opacity: 0.6; }
+            50% { transform: translate(50px, 20px) scale(0.9); opacity: 0.4; }
+            75% { transform: translate(-20px, 40px) scale(1.1); opacity: 0.7; }
+        }
+
+        @keyframes float4 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            30% { transform: translate(40px, 60px) scale(1.2); opacity: 0.6; }
+            60% { transform: translate(-50px, -40px) scale(0.95); opacity: 0.4; }
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.7;
+            box-shadow: 0 0 10px var(--primary-color);
+            animation: particleFloat 15s infinite linear;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
             }
         }
 
-        .particles { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            pointer-events: none; 
-            z-index: 0; 
-        }
-        
-        .particle { 
-            position: absolute; 
-            width: 6px; 
-            height: 6px; 
-            background: var(--secondary); 
-            border-radius: 50%; 
-            animation: float-particle 15s infinite ease-in-out; 
-            box-shadow: 0 0 10px var(--secondary);
-            will-change: transform, opacity;
-        }
-        
-        @keyframes float-particle { 
-            0%, 100% { 
-                transform: translateY(100vh) translateX(0) scale(0.5); 
-                opacity: 0; 
-            } 
-            10% { opacity: 1; } 
-            90% { opacity: 1; } 
-            50% { 
-                transform: translateY(-10vh) translateX(50px) scale(1); 
-            } 
-        }
-        
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(30px); } 
-            to { opacity: 1; transform: translateY(0); } 
+        @media (prefers-reduced-motion: reduce) {
+            .light,
+            .particle {
+                animation: none;
+            }
         }
 
+        /* Container */
         .container {
+            position: relative;
+            z-index: 1;
             display: flex;
             min-height: 100vh;
-            position: relative;
-            z-index: 2;
         }
 
-        /* Semantic sidebar navigation */
+        /* Sidebar */
         .sidebar {
             width: 280px;
-            background: rgba(22, 33, 62, 0.9);
+            background: var(--bg-card);
             backdrop-filter: blur(10px);
-            padding: var(--spacing-lg) var(--spacing-md);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-md);
             display: flex;
             flex-direction: column;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            min-height: 100vh;
+            gap: var(--spacing-md);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: transform var(--transition-normal);
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
         }
 
         .logo {
             display: flex;
             align-items: center;
-            margin-bottom: var(--spacing-lg);
+            gap: 12px;
+            padding: var(--spacing-sm);
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: var(--spacing-sm);
         }
 
-        .logo-icon {
+        .logo i {
             font-size: 32px;
-            margin-right: 15px;
-            color: var(--secondary);
-            text-shadow: 0 0 10px var(--secondary);
-            aria-hidden: true;
+            color: var(--primary-color);
         }
 
-        .logo-text {
+        .logo h1 {
             font-size: 24px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .nav-button {
-            background: transparent;
-            color: rgba(255, 255, 255, 0.7);
-            padding: var(--spacing-sm) var(--spacing-md);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1em;
-            cursor: pointer;
-            margin-bottom: var(--spacing-xs);
-            text-align: left;
-            transition: all var(--transition-normal);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .nav-button:hover {
-            background: rgba(139, 92, 246, 0.2);
-            border-color: rgba(139, 92, 246, 0.6);
-            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
-        }
-
-        .nav-button:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        .nav-button.active {
-            background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-            color: white;
-        }
-
-        .user-profile {
-            margin-top: auto;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .user-info {
+            background: rgba(0, 212, 255, 0.1);
             padding: var(--spacing-sm);
-            background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
-        }
-
-        .avatar {
-            font-size: 2em;
-            aria-hidden: true;
+            border: 1px solid rgba(0, 212, 255, 0.3);
         }
 
         .user-info h3 {
-            margin: 0;
-            font-size: 1em;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
         }
 
         .user-info p {
-            margin: 0;
-            font-size: 0.9em;
-            color: var(--text-muted);
+            font-size: 18px;
+            color: var(--primary-color);
+            font-weight: 600;
         }
 
-        /* Semantic main content */
+        .xp-display {
+            background: rgba(123, 44, 191, 0.1);
+            padding: var(--spacing-sm);
+            border-radius: 12px;
+            border: 1px solid rgba(123, 44, 191, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .xp-display i {
+            font-size: 24px;
+            color: var(--secondary-color);
+        }
+
+        .xp-info h3 {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .xp-info p {
+            font-size: 20px;
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        .nav-section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .nav-section h3 {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xs);
+            letter-spacing: 1px;
+        }
+
+        .nav-button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            text-align: left;
+        }
+
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-color);
+            transform: translateX(4px);
+        }
+
+        .nav-button.active {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(123, 44, 191, 0.2));
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .nav-button i {
+            font-size: 18px;
+            color: var(--primary-color);
+        }
+
+        /* Main Content */
         .main-content {
             flex: 1;
+            margin-left: 280px;
             padding: var(--spacing-lg);
-            background: rgba(26, 26, 46, 0.8);
-            min-height: 100vh;
-            overflow-y: auto;
-            backdrop-filter: blur(5px);
+            position: relative;
         }
 
         .page {
             display: none;
-            animation: fadeIn 0.8s ease-out;
+            animation: fadeIn 0.5s ease;
         }
 
         .page.active {
             display: block;
         }
 
-        .page-title {
-            font-size: 2.5em;
-            font-weight: 800;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-header {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .page-header h2 {
+            font-size: 36px;
             margin-bottom: var(--spacing-sm);
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-align: center;
         }
 
-        .page-subtitle {
-            font-size: 1.2em;
-            color: var(--text-muted);
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto var(--spacing-lg);
-            line-height: 1.6;
+        .page-header p {
+            font-size: 18px;
+            color: var(--text-secondary);
         }
 
-        .intro-section {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: var(--spacing-lg);
-            margin-bottom: var(--spacing-lg);
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-            border: 2px solid rgba(139, 92, 246, 0.3);
-        }
-
-        .intro-icon {
-            font-size: 64px;
-            margin-bottom: var(--spacing-md);
-            aria-hidden: true;
-        }
-
-        .intro-section h2 {
-            font-size: 2em;
-            margin-bottom: var(--spacing-md);
-            color: white;
-        }
-
-        .intro-section p {
-            margin-bottom: var(--spacing-md);
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            border: none;
-            padding: var(--spacing-sm) 32px;
-            border-radius: 50px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
-            margin-top: var(--spacing-md);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
-        }
-
-        .cta-button:focus {
-            outline: 2px solid white;
-            outline-offset: 2px;
-        }
-
-        .modules-container {
+        /* Module Cards */
+        .modules-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: var(--spacing-lg);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
         }
 
-        .module {
-            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .module-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
-            padding: 25px;
+            padding: var(--spacing-md);
             transition: all var(--transition-normal);
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
         }
 
-        .module::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        .module-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-color);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
         }
 
-        .module:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-            border-color: rgba(139, 92, 246, 0.4);
-        }
-
-        .module:focus-within {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        .module-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .module-title {
-            font-size: 1.3em;
-            color: #fff;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .module-progress {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .progress-circle {
+        .module-icon {
             width: 60px;
             height: 60px;
-            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: var(--spacing-xs);
-            font-weight: 600;
-            background: conic-gradient(var(--primary) 25%, rgba(255,255,255,0.1) 0%);
-            position: relative;
+            font-size: 28px;
+            margin-bottom: var(--spacing-sm);
         }
 
-        .progress-circle::before {
-            content: '';
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #1a1a2e;
+        .module-card h3 {
+            font-size: 22px;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .module-card p {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: var(--spacing-sm);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+            transition: width 0.5s ease;
         }
 
         .progress-text {
-            font-size: 14px;
-            z-index: 1;
-        }
-
-        .module-progress span {
             font-size: 12px;
-            color: var(--text-muted);
+            color: var(--text-secondary);
+            margin-top: 4px;
         }
 
-        .topics-list {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-sm);
-        }
-
-        .topic {
-            display: flex;
-            align-items: flex-start;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            transition: all var(--transition-normal);
-        }
-
-        .topic:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateX(5px);
-        }
-
-        .topic-checkbox {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid var(--text-muted);
-            margin-right: 12px;
-            margin-top: 2px;
-            flex-shrink: 0;
-            transition: all var(--transition-normal);
-        }
-
-        .topic.completed .topic-checkbox {
-            background: var(--secondary);
-            border-color: var(--secondary);
-            position: relative;
-        }
-
-        .topic.completed .topic-checkbox::after {
-            content: "✓";
-            color: white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .topic-content {
-            flex: 1;
-        }
-
-        .topic-title {
-            font-weight: 600;
-            margin-bottom: var(--spacing-xs);
-        }
-
-        .topic-subtopics {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--spacing-xs);
-        }
-
-        .subtopic {
-            font-size: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 4px 8px;
-            border-radius: 20px;
-            color: var(--text-muted);
-        }
-
-        .gamification {
-            display: flex;
-            justify-content: center;
-            gap: var(--spacing-lg);
-            margin-top: var(--spacing-lg);
-            flex-wrap: wrap;
-        }
-
-        .stats-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 25px;
-            text-align: center;
-            min-width: 150px;
-            box-shadow: var(--shadow-md);
-            border: 2px solid rgba(139, 92, 246, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stats-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .stats-number {
-            font-size: 2.5em;
-            font-weight: 700;
-            margin-bottom: var(--spacing-xs);
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stats-label {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        /* Module specific styles */
-        .module1-content,
-        .module2-content,
-        .module3-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .module1-header,
-        .module2-header,
-        .module3-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .module1-title,
-        .module2-title,
-        .module3-title {
-            font-size: 2.5em;
-            font-weight: 800;
-            margin-bottom: var(--spacing-sm);
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .module1-subtitle,
-        .module2-subtitle,
-        .module3-subtitle {
-            font-size: 1.2em;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .module1-grid,
-        .module2-grid,
-        .module3-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--spacing-lg);
-            margin-bottom: 50px;
-        }
-
-        .module1-card,
-        .module2-card,
-        .module3-card {
-            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
-            border: 2px solid rgba(139, 92, 246, 0.3);
-            border-radius: 20px;
-            padding: var(--spacing-lg);
-            text-align: center;
-            transition: all var(--transition-normal);
-            position: relative;
-            overflow: hidden;
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .module1-card::before,
-        .module2-card::before,
-        .module3-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .module1-card:hover,
-        .module2-card:hover,
-        .module3-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            border-color: rgba(139, 92, 246, 0.6);
-        }
-
-        .module1-card:focus,
-        .module2-card:focus,
-        .module3-card:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        .module1-icon,
-        .module2-icon,
-        .module3-icon {
-            font-size: 80px;
-            margin-bottom: var(--spacing-lg);
-            color: var(--secondary);
-            text-shadow: 0 0 20px var(--secondary);
-            transition: all var(--transition-normal);
-            aria-hidden: true;
-        }
-
-        .module1-card:hover .module1-icon,
-        .module2-card:hover .module2-icon,
-        .module3-card:hover .module3-icon {
-            transform: scale(1.15);
-            text-shadow: 0 0 30px var(--secondary), 0 0 50px var(--secondary);
-        }
-
-        .module1-card-title,
-        .module2-card-title,
-        .module3-card-title {
-            font-size: 1.5em;
-            color: #fff;
-            font-weight: 700;
-            line-height: 1.4;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .module1-card-description,
-        .module2-card-description {
-            color: var(--text-muted);
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-
-        /* Welcome page styles */
-        #welcome-page {
+        /* Welcome Screen */
+        .welcome-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0a0f2d, #1a237e, #283593);
+            background: var(--bg-dark);
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             z-index: 1000;
-            color: white;
-            text-align: center;
             padding: var(--spacing-md);
         }
 
-        #welcome-page.hidden {
+        .welcome-screen.hidden {
             display: none;
         }
 
-        .welcome-container {
-            background: rgba(15, 23, 42, 0.9);
+        .welcome-card {
+            background: var(--bg-card);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
             padding: var(--spacing-lg);
-            max-width: 600px;
-            width: 90%;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .welcome-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+            max-width: 500px;
             width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        .welcome-title {
-            font-size: 2.5rem;
-            margin-bottom: var(--spacing-md);
-            color: white;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        .welcome-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            font-size: 48px;
+            margin: 0 auto var(--spacing-md);
         }
 
-        .welcome-subtitle {
-            font-size: 1.2rem;
+        .welcome-card h2 {
+            font-size: 32px;
+            margin-bottom: var(--spacing-sm);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-card p {
+            color: var(--text-secondary);
             margin-bottom: var(--spacing-lg);
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
+            font-size: 16px;
         }
 
-        .welcome-form {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-md);
+        .input-group {
+            margin-bottom: var(--spacing-md);
         }
 
-        .welcome-input {
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-            transition: all var(--transition-normal);
-            max-length: 50;
+        .input-group input {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: all var(--transition-fast);
         }
 
-        .welcome-input:focus {
+        .input-group input:focus {
             outline: none;
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
         }
 
-        .welcome-input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .welcome-button {
-            padding: 15px 30px;
-            border-radius: 10px;
+        .start-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border: none;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            font-size: 1.1rem;
-            font-weight: bold;
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all var(--transition-normal);
-            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-fast);
         }
 
-        .welcome-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
         }
 
-        .welcome-button:focus {
-            outline: 2px solid white;
-            outline-offset: 2px;
+        .start-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
 
-        .welcome-button:active {
-            transform: translateY(0);
+        .error-message {
+            color: var(--accent-color);
+            font-size: 14px;
+            margin-top: var(--spacing-xs);
+            display: none;
         }
 
-        .welcome-features {
-            display: flex;
-            justify-content: space-around;
-            margin-top: var(--spacing-lg);
-            flex-wrap: wrap;
-            gap: var(--spacing-md);
+        .error-message.show {
+            display: block;
         }
 
-        .feature {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 150px;
-            transition: all var(--transition-normal);
-        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 100;
+            }
 
-        .feature:hover {
-            transform: translateY(-5px);
-        }
+            .sidebar.show {
+                transform: translateX(0);
+            }
 
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            transition: all var(--transition-normal);
-            aria-hidden: true;
-        }
+            .main-content {
+                margin-left: 0;
+                padding: var(--spacing-md);
+            }
 
-        .feature:hover .feature-icon {
-            transform: scale(1.2);
-        }
-
-        .feature-text {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .content-blocked {
-            filter: blur(5px);
-            pointer-events: none;
-            user-select: none;
-        }
-
-        /* Animations */
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
-
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 5px var(--primary); }
-            50% { box-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary); }
-            100% { box-shadow: 0 0 5px var(--primary); }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes wiggle {
-            0%, 7% { transform: rotateZ(0); }
-            15% { transform: rotateZ(-15deg); }
-            20% { transform: rotateZ(10deg); }
-            25% { transform: rotateZ(-10deg); }
-            30% { transform: rotateZ(6deg); }
-            35% { transform: rotateZ(-4deg); }
-            40%, 100% { transform: rotateZ(0); }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .bounce {
-            animation: bounce 2s infinite;
-        }
-
-        .pulse-glow {
-            animation: pulse-glow 2s infinite;
-        }
-
-        .spin {
-            animation: spin 3s linear infinite;
-        }
-
-        .wiggle {
-            animation: wiggle 2s infinite;
-        }
-
-        .float {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .emoji-animation {
-            font-size: 2rem;
-            margin: 0 5px;
-            display: inline-block;
-        }
-
-        .emoji-1 {
-            animation: bounce 2s infinite;
-        }
-
-        .emoji-2 {
-            animation: float 3s infinite, wiggle 4s infinite;
-        }
-
-        .emoji-3 {
-            animation: spin 4s infinite, pulse-glow 2s infinite;
-        }
-
-        /* Screen reader only text */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .modules-container {
+            .modules-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .module1-grid,
-            .module2-grid,
-            .module3-grid {
-                grid-template-columns: 1fr;
+
+            .page-header h2 {
+                font-size: 28px;
             }
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 101;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            color: var(--primary-color);
+            font-size: 24px;
         }
 
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-                min-height: auto;
-                padding: var(--spacing-md);
-            }
-            
-            .main-content {
-                padding: var(--spacing-lg) var(--spacing-md);
-            }
-            
-            .page-title {
-                font-size: 2em;
-            }
-            
-            .module1-title,
-            .module2-title,
-            .module3-title {
-                font-size: 2em;
-            }
-            
-            .module1-icon,
-            .module2-icon,
-            .module3-icon {
-                font-size: 60px;
-            }
-            
-            .module1-card,
-            .module2-card,
-            .module3-card {
-                padding: var(--spacing-lg) var(--spacing-md);
-                min-height: 250px;
-            }
-            
-            .module1-card-title,
-            .module2-card-title,
-            .module3-card-title {
-                font-size: 1.4em;
-            }
-            
-            .welcome-title {
-                font-size: 2rem;
-            }
-            
-            .welcome-features {
-                flex-direction: column;
-                align-items: center;
+            .menu-toggle {
+                display: block;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Welcome page -->
-    <div id="welcome-page" role="dialog" aria-labelledby="welcome-title" aria-modal="true">
-        <div class="welcome-container">
-            <h1 id="welcome-title" class="welcome-title">
-                <span class="emoji-animation emoji-1" aria-hidden="true">🛡️</span>
-                CyberZone
-                <span class="emoji-animation emoji-2" aria-hidden="true">🚀</span>
-            </h1>
-            <p class="welcome-subtitle">
-                ¡Bienvenido a tu aventura digital! 
-                <span class="emoji-animation emoji-3" aria-hidden="true">🌟</span><br>
-                Para comenzar, ingresa tu nombre:
-            </p>
-            
-            <form class="welcome-form" id="welcome-form" aria-label="Formulario de bienvenida">
-                <label for="user-name" class="sr-only">Tu nombre</label>
+    <!-- Background Animations -->
+    <div class="background-animation" id="backgroundAnimation">
+        <div class="light light1"></div>
+        <div class="light light2"></div>
+        <div class="light light3"></div>
+        <div class="light light4"></div>
+    </div>
+
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-card">
+            <div class="welcome-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h2>¡Bienvenido a CyberZone!</h2>
+            <p>Tu espacio seguro para aprender sobre ciudadanía digital, privacidad y ciberseguridad</p>
+            <div class="input-group">
                 <input 
                     type="text" 
-                    class="welcome-input" 
-                    id="user-name" 
-                    placeholder="Ingresa tu nombre aquí" 
-                    required 
-                    maxlength="50"
-                    aria-required="true"
+                    id="nameInput" 
+                    placeholder="Ingresa tu nombre" 
+                    maxlength="30"
+                    aria-label="Ingresa tu nombre"
                     autocomplete="name"
                 >
-                <button type="submit" class="welcome-button pulse-glow" aria-label="Comenzar aventura en CyberZone">
-                    <span class="emoji-animation float" aria-hidden="true">🎮</span>
-                    Comenzar Aventura 
-                    <span class="emoji-animation wiggle" aria-hidden="true">🚀</span>
-                </button>
-            </form>
-            
-            <div class="welcome-features" role="list" aria-label="Características de CyberZone">
-                <div class="feature" role="listitem">
-                    <div class="feature-icon bounce" aria-hidden="true">📚</div>
-                    <div class="feature-text">Módulos Interactivos</div>
-                </div>
-                <div class="feature" role="listitem">
-                    <div class="feature-icon spin" aria-hidden="true">🏆</div>
-                    <div class="feature-text">Sistema de Recompensas</div>
-                </div>
-                <div class="feature" role="listitem">
-                    <div class="feature-icon float" aria-hidden="true">🔒</div>
-                    <div class="feature-text">Contenido Seguro</div>
-                </div>
-                <div class="feature" role="listitem">
-                    <div class="feature-icon wiggle" aria-hidden="true">🎯</div>
-                    <div class="feature-text">Desafíos Divertidos</div>
-                </div>
+                <div class="error-message" id="errorMessage">Por favor ingresa un nombre válido (2-30 caracteres)</div>
             </div>
+            <button class="start-button" id="startButton" onclick="startApp()">
+                Comenzar Aventura
+            </button>
         </div>
     </div>
 
-    <!-- Background lights - OPTIMIZED to 4 lights -->
-    <div class="lights-container" aria-hidden="true">
-        <div class="light light-1"></div>
-        <div class="light light-2"></div>
-        <div class="light light-3"></div>
-        <div class="light light-4"></div>
-    </div>
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+    </button>
 
-    <!-- Particles effect -->
-    <div class="particles" id="particles" aria-hidden="true"></div>
-
-    <div class="container" id="main-container">
-        <!-- Semantic navigation -->
-        <nav class="sidebar" role="navigation" aria-label="Navegación principal">
+    <!-- Main Container -->
+    <div class="container" id="mainContainer" style="display: none;">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
             <div class="logo">
-                <div class="logo-icon" aria-hidden="true">🛡️</div>
-                <div class="logo-text">CyberZone</div>
+                <i class="fas fa-shield-alt"></i>
+                <h1>CyberZone</h1>
             </div>
-            
-            <button class="nav-button active" onclick="Navigation.showPage('inicio', this)" aria-current="page">
-                <span class="nav-icon" aria-hidden="true">🏠</span> 
-                <span>Inicio</span>
-            </button>
-            <button class="nav-button" onclick="Navigation.showPage('modulo1', this)">
-                <span class="nav-icon" aria-hidden="true">👤</span> 
-                <span>Ciudadanía Digital</span>
-            </button>
-            <button class="nav-button" onclick="Navigation.showPage('modulo2', this)">
-                <span class="nav-icon" aria-hidden="true">🔒</span> 
-                <span>Privacidad & Datos</span>
-            </button>
-            <button class="nav-button" onclick="Navigation.showPage('modulo3', this)">
-                <span class="nav-icon" aria-hidden="true">💻</span> 
-                <span>Ciberseguridad</span>
-            </button>
 
-            <div class="user-profile" role="region" aria-label="Perfil de usuario">
-                <div class="avatar" aria-hidden="true">👤</div>
-                <div class="user-info">
-                    <h3 id="display-user-name">CyberExplorador</h3>
-                    <p id="user-level">Nivel 3 | 240 XP</p>
+            <div class="user-info">
+                <h3>Usuario</h3>
+                <p id="userName">CyberExplorador</p>
+            </div>
+
+            <div class="xp-display">
+                <i class="fas fa-star"></i>
+                <div class="xp-info">
+                    <h3>Experiencia</h3>
+                    <p id="xpDisplay">240 XP</p>
                 </div>
+            </div>
+
+            <div class="nav-section">
+                <h3>Navegación</h3>
+                <button class="nav-button active" onclick="showPage('inicio')" data-page="inicio" aria-current="page">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </button>
+                <button class="nav-button" onclick="showPage('modulo1')" data-page="modulo1">
+                    <i class="fas fa-users"></i>
+                    <span>Ciudadanía Digital</span>
+                </button>
+                <button class="nav-button" onclick="showPage('modulo2')" data-page="modulo2">
+                    <i class="fas fa-lock"></i>
+                    <span>Privacidad & Datos</span>
+                </button>
+                <button class="nav-button" onclick="showPage('modulo3')" data-page="modulo3">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Ciberseguridad</span>
+                </button>
             </div>
         </nav>
 
-        <!-- Semantic main content -->
+        <!-- Main Content -->
         <main class="main-content" role="main">
-            <!-- Home page -->
-            <article id="inicio" class="page active">
-                <h1 class="page-title">Aula Virtual: Seguridad Digital para Jóvenes</h1>
-                <p class="page-subtitle">Domina el mundo digital con confianza. Aprende a proteger tu información, identificar riesgos y convertirte en un ciudadano digital responsable.</p>
-                
-                <section class="intro-section">
-                    <div class="intro-icon" aria-hidden="true">🚀</div>
-                    <h2>Tu Aventura Digital Comienza Aquí</h2>
-                    <p>Explora nuestros módulos interactivos diseñados específicamente para jóvenes como tú. Aprende sobre seguridad en redes sociales, protección contra estafas y cómo mantener tu identidad digital segura.</p>
-                    <p>Completa actividades, gana insignias y conviértete en un experto en ciberseguridad.</p>
-                    <button class="cta-button" onclick="Navigation.showPage('modulo1', document.querySelectorAll('.nav-button')[1])">Comenzar Aventura</button>
-                </section>
+            <!-- Inicio Page -->
+            <article class="page active" id="inicio" role="article">
+                <header class="page-header">
+                    <h2>¡Bienvenido a tu Aventura Digital!</h2>
+                    <p>Explora los módulos y conviértete en un experto en seguridad digital</p>
+                </header>
 
-                <h2 style="font-size: 32px; margin: 40px 0 20px; color: white; text-align: center;">Tu Progreso</h2>
-                
-                <div class="modules-container">
-                    <!-- Module 1 -->
-                    <div class="module" onclick="Navigation.showPage('modulo1', document.querySelectorAll('.nav-button')[1])" tabindex="0" role="button" aria-label="Ir a Módulo 1: Ciudadanía Digital">
-                        <div class="module-header">
-                            <h3 class="module-title"><span class="module-icon" aria-hidden="true">👤</span> Módulo 1: Ciudadanía Digital</h3>
-                            <div class="module-progress">
-                                <div class="progress-circle" id="progress-module1" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                    <span class="progress-text">25%</span>
-                                </div>
-                                <span>Progreso</span>
-                            </div>
+                <div class="modules-grid">
+                    <div class="module-card" onclick="showPage('modulo1')" role="button" tabindex="0">
+                        <div class="module-icon">
+                            <i class="fas fa-users"></i>
                         </div>
-                        <div class="topics-list">
-                            <div class="topic not-started">
-                                <div class="topic-checkbox" aria-hidden="true"></div>
-                                <div class="topic-content">
-                                    <div class="topic-title">Tema 1: Ciudadanía Digital Crítica y Responsable</div>
-                                    <div class="topic-subtopics">
-                                        <span class="subtopic">Identificar información falsa</span>
-                                        <span class="subtopic">Participación digital responsable</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="topic completed">
-                                <div class="topic-checkbox" aria-hidden="true"></div>
-                                <div class="topic-content">
-                                    <div class="topic-title">Tema 2: Bienestar Digital y Salud Emocional</div>
-                                    <div class="topic-subtopics">
-                                        <span class="subtopic">Gestión del tiempo en pantalla</span>
-                                        <span class="subtopic">Impacto emocional de las redes</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <h3>Ciudadanía Digital</h3>
+                        <p>Aprende sobre comportamiento responsable en línea y respeto digital</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
                         </div>
+                        <div class="progress-text">60% completado</div>
                     </div>
 
-                    <!-- Module 2 -->
-                    <div class="module" onclick="Navigation.showPage('modulo2', document.querySelectorAll('.nav-button')[2])" tabindex="0" role="button" aria-label="Ir a Módulo 2: Privacidad y Datos">
-                        <div class="module-header">
-                            <h3 class="module-title"><span class="module-icon" aria-hidden="true">🔒</span> Módulo 2: Privacidad y Datos</h3>
-                            <div class="module-progress">
-                                <div class="progress-circle" id="progress-module2" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                    <span class="progress-text">50%</span>
-                                </div>
-                                <span>Progreso</span>
-                            </div>
+                    <div class="module-card" onclick="showPage('modulo2')" role="button" tabindex="0">
+                        <div class="module-icon">
+                            <i class="fas fa-lock"></i>
                         </div>
-                        <div class="topics-list">
-                            <div class="topic completed">
-                                <div class="topic-checkbox" aria-hidden="true"></div>
-                                <div class="topic-content">
-                                    <div class="topic-title">Tema 1: Consumo Digital Consciente y Ético</div>
-                                    <div class="topic-subtopics">
-                                        <span class="subtopic">Huella digital y datos personales</span>
-                                        <span class="subtopic">Configuración de privacidad</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="topic completed">
-                                <div class="topic-checkbox" aria-hidden="true"></div>
-                                <div class="topic-content">
-                                    <div class="topic-title">Tema 2: Gestión Segura de Contraseñas y Accesos</div>
-                                    <div class="topic-subtopics">
-                                        <span class="subtopic">Creación de contraseñas seguras</span>
-                                        <span class="subtopic">Autenticación de dos factores</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <h3>Privacidad & Datos</h3>
+                        <p>Protege tu información personal y aprende sobre privacidad en línea</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 40%"></div>
                         </div>
+                        <div class="progress-text">40% completado</div>
                     </div>
 
-                    <!-- Module 3 -->
-                    <div class="module" onclick="Navigation.showPage('modulo3', document.querySelectorAll('.nav-button')[3])" tabindex="0" role="button" aria-label="Ir a Módulo 3: Ciberseguridad Práctica">
-                        <div class="module-header">
-                            <h3 class="module-title"><span class="module-icon" aria-hidden="true">💻</span> Módulo 3: Ciberseguridad Práctica</h3>
-                            <div class="module-progress">
-                                <div class="progress-circle" id="progress-module3" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">
-                                    <span class="progress-text">67%</span>
-                                </div>
-                                <span>Progreso</span>
-                            </div>
+                    <div class="module-card" onclick="showPage('modulo3')" role="button" tabindex="0">
+                        <div class="module-icon">
+                            <i class="fas fa-shield-alt"></i>
                         </div>
-                        <div class="topics-list">
-                            <div class="topic completed">
-                                <div class="topic-checkbox" aria-hidden="true"></div>
-                                <div class="topic-content">
-                                    <div class="topic-title">Tema 1: Navegación Segura y Protección contra Malware</div>
-                                    <div class="topic-subtopics">
-                                        <span class="subtopic">Identificación de sitios seguros</span>
-                                        <span class="subtopic">Protección contra virus y malware</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="topic completed">
-                                <div class="topic-checkbox" aria-hidden="true"></div>
-                                <div class="topic-content">
-                                    <div class="topic-title">Tema 2: Alfabetización Mediática y Verificación</div>
-                                    <div class="topic-subtopics">
-                                        <span class="subtopic">Detección de noticias falsas</span>
-                                        <span class="subtopic">Verificación de fuentes</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <h3>Ciberseguridad</h3>
+                        <p>Descubre cómo protegerte de amenazas digitales y mantener tu seguridad</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 20%"></div>
                         </div>
+                        <div class="progress-text">20% completado</div>
                     </div>
-                </div>
-
-                <section class="gamification" aria-label="Estadísticas de progreso">
-                    <div class="stats-card">
-                        <div class="stats-number" id="modules-completed">2/3</div>
-                        <div class="stats-label">Módulos Completados</div>
-                    </div>
-                    <div class="stats-card">
-                        <div class="stats-number" id="topics-completed">5/7</div>
-                        <div class="stats-label">Temas Completados</div>
-                    </div>
-                    <div class="stats-card">
-                        <div class="stats-number" id="xp-points">240</div>
-                        <div class="stats-label">Puntos de Experiencia</div>
-                    </div>
-                </section>
-            </article>
-
-            <!-- Module 1 page -->
-            <article id="modulo1" class="page">
-                <div class="module1-content">
-                    <header class="module1-header">
-                        <h1 class="module1-title">Módulo 1: Ciudadanía Digital</h1>
-                        <p class="module1-subtitle">Aprende a navegar por el mundo digital de forma crítica, responsable y ética, protegiendo tu bienestar emocional y conviviendo respetuosamente en línea.</p>
-                    </header>
-
-                    <section class="module1-grid">
-                        <div class="module1-card" onclick="window.location.href='Modulo1/ciudadania.html';" tabindex="0" role="button" aria-label="Ir a Ciudadanía Digital Crítica y Responsable">
-                            <div class="module1-icon" aria-hidden="true">🧠</div>
-                            <h3 class="module1-card-title">Ciudadanía Digital Crítica y Responsable</h3>
-                            <p class="module1-card-description">Desarrolla un pensamiento crítico para evaluar información, identificar desinformación y participar de manera responsable en espacios digitales.</p>
-                        </div>
-
-                        <div class="module1-card" onclick="window.location.href='Modulo1/bienestar.html';" tabindex="0" role="button" aria-label="Ir a Bienestar Digital y Salud Emocional">
-                            <div class="module1-icon" aria-hidden="true">💚</div>
-                            <h3 class="module1-card-title">Bienestar Digital y Salud Emocional</h3>
-                            <p class="module1-card-description">Aprende a gestionar tu tiempo en pantalla, reconocer el impacto emocional de las redes sociales y mantener un equilibrio saludable con la tecnología.</p>
-                        </div>
-
-                        <div class="module1-card" onclick="window.location.href='Modulo1/convi.html';" tabindex="0" role="button" aria-label="Ir a Ética Digital y Convivencia en Línea">
-                            <div class="module1-icon" aria-hidden="true">🤝</div>
-                            <h3 class="module1-card-title">Ética Digital y Convivencia en Línea</h3>
-                            <p class="module1-card-description">Comprende los principios éticos que deben guiar tu comportamiento en línea, promoviendo el respeto, la empatía y la convivencia positiva en espacios digitales.</p>
-                        </div>
-                    </section>
-                    
-                    <section class="intro-section">
-                        <h2>¿Por qué es importante la Ciudadanía Digital?</h2>
-                        <p>La ciudadanía digital te enseña a utilizar la tecnología de manera responsable, ética y segura. Aprenderás a identificar riesgos, proteger tu privacidad y construir una presencia positiva en línea.</p>
-                        <p>Completa este módulo para convertirte en un ciudadano digital ejemplar y ayudar a otros a navegar de forma segura por Internet.</p>
-                        <button class="cta-button" onclick="Navigation.showPage('inicio', document.querySelectorAll('.nav-button')[0])">Volver al Inicio</button>
-                    </section>
                 </div>
             </article>
 
-            <!-- Module 2 page -->
-            <article id="modulo2" class="page">
-                <div class="module2-content">
-                    <header class="module2-header">
-                        <h1 class="module2-title">Módulo 2: Privacidad y Datos</h1>
-                        <p class="module2-subtitle">Aprende a proteger tu información personal, gestionar tu huella digital y navegar de forma segura en el entorno digital.</p>
-                    </header>
-
-                    <section class="module2-grid">
-                        <div class="module2-card" tabindex="0" role="button" aria-label="Ir a Consumo Digital Consciente y Ético">
-                            <div class="module2-icon" aria-hidden="true">🌐</div>
-                            <h3 class="module2-card-title">Consumo Digital Consciente y Ético</h3>
-                            <p class="module2-card-description">Aprende a tomar decisiones informadas sobre tu consumo digital, comprendiendo el valor de tus datos y el impacto de tu huella digital.</p>
-                        </div>
-
-                        <div class="module2-card" tabindex="0" role="button" aria-label="Ir a Gestión Segura de Contraseñas y Accesos">
-                            <div class="module2-icon" aria-hidden="true">🔑</div>
-                            <h3 class="module2-card-title">Gestión Segura de Contraseñas y Accesos</h3>
-                            <p class="module2-card-description">Domina las mejores prácticas para crear y gestionar contraseñas seguras, y protege tus cuentas con métodos de autenticación robustos.</p>
-                        </div>
-
-                        <div class="module2-card" tabindex="0" role="button" aria-label="Ir a Navegación Segura y Protección contra Malware">
-                            <div class="module2-icon" aria-hidden="true">🛡️</div>
-                            <h3 class="module2-card-title">Navegación Segura y Protección contra Malware</h3>
-                            <p class="module2-card-description">Identifica sitios web seguros, reconoce amenazas en línea y protege tus dispositivos contra virus, malware y otras ciberamenazas.</p>
-                        </div>
-
-                        <div class="module2-card" tabindex="0" role="button" aria-label="Ir a Alfabetización Mediática y Verificación de Información">
-                            <div class="module2-icon" aria-hidden="true">📰</div>
-                            <h3 class="module2-card-title">Alfabetización Mediática y Verificación de Información</h3>
-                            <p class="module2-card-description">Desarrolla habilidades para evaluar críticamente la información en línea, detectar noticias falsas y verificar fuentes confiables.</p>
-                        </div>
-                    </section>
-                    
-                    <section class="intro-section">
-                        <h2>Protege tu Privacidad en el Mundo Digital</h2>
-                        <p>En un mundo cada vez más conectado, proteger tu información personal es fundamental. Este módulo te proporciona las herramientas necesarias para mantener el control sobre tus datos y navegar de forma segura.</p>
-                        <p>Completa las actividades para dominar las técnicas de protección de privacidad y convertirte en un usuario digital seguro y consciente.</p>
-                        <button class="cta-button" onclick="Navigation.showPage('inicio', document.querySelectorAll('.nav-button')[0])">Volver al Inicio</button>
-                    </section>
-                </div>
+            <!-- Módulo 1: Ciudadanía Digital -->
+            <article class="page" id="modulo1" role="article">
+                <header class="page-header">
+                    <h2>Módulo 1: Ciudadanía Digital</h2>
+                    <p>Aprende a ser un ciudadano digital responsable</p>
+                </header>
+                <p style="color: var(--text-secondary); font-size: 18px;">Contenido del módulo en desarrollo...</p>
             </article>
 
-            <!-- Module 3 page -->
-            <article id="modulo3" class="page">
-                <div class="module3-content">
-                    <header class="module3-header">
-                        <h1 class="module3-title">Módulo 3: Ciberseguridad Práctica</h1>
-                        <p class="module3-subtitle">Aprende técnicas prácticas para proteger tu información, identidad y derechos en el entorno digital</p>
-                    </header>
+            <!-- Módulo 2: Privacidad & Datos -->
+            <article class="page" id="modulo2" role="article">
+                <header class="page-header">
+                    <h2>Módulo 2: Privacidad & Datos</h2>
+                    <p>Protege tu información personal en el mundo digital</p>
+                </header>
+                <p style="color: var(--text-secondary); font-size: 18px;">Contenido del módulo en desarrollo...</p>
+            </article>
 
-                    <section class="module3-grid">
-                        <div class="module3-card" onclick="window.location.href='Modulo3/infoSegura.html';" tabindex="0" role="button" aria-label="Ir a Seguridad de la información y protección de datos">
-                            <div class="module3-icon" aria-hidden="true">🔒</div>
-                            <h3 class="module3-card-title">Seguridad de la información<br>y protección de datos</h3>
-                        </div>
-
-                        <div class="module3-card" onclick="window.location.href='Modulo3/identidadDigital.html';" tabindex="0" role="button" aria-label="Ir a Protección de la identidad digital">
-                            <div class="module3-icon" aria-hidden="true">🛡️</div>
-                            <h3 class="module3-card-title">Protección de la identidad<br>digital</h3>
-                        </div>
-
-                        <div class="module3-card" onclick="window.location.href='Modulo3/delitosInfantiles.html';" tabindex="0" role="button" aria-label="Ir a Prevención en delitos digitales infantiles">
-                            <div class="module3-icon" aria-hidden="true">👶</div>
-                            <h3 class="module3-card-title">Prevención en delitos digitales<br>infantiles</h3>
-                        </div>
-
-                        <div class="module3-card" onclick="window.location.href='Modulo3/legislacionJuvenil.html';" tabindex="0" role="button" aria-label="Ir a Derechos digitales y legislación juvenil">
-                            <div class="module3-icon" aria-hidden="true">⚖️</div>
-                            <h3 class="module3-card-title">Derechos digitales y legislación<br>juvenil</h3>
-                        </div>
-                    </section>
-                    
-                    <section class="intro-section">
-                        <h2>¿Listo para convertirte en un experto en ciberseguridad?</h2>
-                        <p>Completa las actividades de este módulo para dominar las técnicas más importantes de protección digital y obtener tu certificado de ciberseguridad.</p>
-                        <button class="cta-button" onclick="Navigation.showPage('inicio', document.querySelectorAll('.nav-button')[0])">Volver al Inicio</button>
-                    </section>
-                </div>
+            <!-- Módulo 3: Ciberseguridad -->
+            <article class="page" id="modulo3" role="article">
+                <header class="page-header">
+                    <h2>Módulo 3: Ciberseguridad</h2>
+                    <p>Mantente seguro frente a amenazas digitales</p>
+                </header>
+                <p style="color: var(--text-secondary); font-size: 18px;">Contenido del módulo en desarrollo...</p>
             </article>
         </main>
     </div>
 
     <script>
-        // MODULAR JAVASCRIPT - Organized into objects
-
-        // App State Management
+        // Estado de la aplicación
         const AppState = {
             userName: '',
             currentPage: 'inicio',
             xp: 240,
-            level: 3,
             
-            // Load from localStorage
             load() {
                 const saved = localStorage.getItem('cyberzone_user');
                 if (saved) {
-                    try {
-                        const data = JSON.parse(saved);
-                        this.userName = data.userName || '';
-                        this.xp = data.xp || 240;
-                        this.level = data.level || 3;
-                        return true;
-                    } catch (e) {
-                        console.error('Error loading saved data:', e);
-                        return false;
-                    }
+                    const data = JSON.parse(saved);
+                    this.userName = data.name || '';
+                    this.xp = data.xp || 240;
+                    return true;
                 }
                 return false;
             },
             
-            // Save to localStorage
             save() {
-                const data = {
-                    userName: this.userName,
-                    xp: this.xp,
-                    level: this.level,
-                    savedAt: new Date().toISOString()
-                };
-                localStorage.setItem('cyberzone_user', JSON.stringify(data));
+                localStorage.setItem('cyberzone_user', JSON.stringify({
+                    name: this.userName,
+                    xp: this.xp
+                }));
             }
         };
 
-        // Input Sanitization
+        // Gestión de navegación
+        const Navigation = {
+            showPage(pageId) {
+                const pages = document.querySelectorAll('.page');
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                    page.setAttribute('aria-hidden', 'true');
+                });
+                
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                    targetPage.setAttribute('aria-hidden', 'false');
+                }
+                
+                const buttons = document.querySelectorAll('.nav-button');
+                buttons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.removeAttribute('aria-current');
+                });
+                
+                const activeButton = document.querySelector(`[data-page="${pageId}"]`);
+                if (activeButton) {
+                    activeButton.classList.add('active');
+                    activeButton.setAttribute('aria-current', 'page');
+                }
+                
+                AppState.currentPage = pageId;
+                
+                if (window.innerWidth <= 768) {
+                    this.closeSidebar();
+                }
+            },
+            
+            closeSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.remove('show');
+            }
+        };
+
+        // Seguridad y validación
         const Security = {
             sanitizeInput(input) {
                 const div = document.createElement('div');
@@ -1441,218 +810,93 @@
             
             validateName(name) {
                 const trimmed = name.trim();
-                if (trimmed.length === 0) {
-                    return { valid: false, message: 'Por favor, ingresa tu nombre.' };
-                }
-                if (trimmed.length > 50) {
-                    return { valid: false, message: 'El nombre es demasiado largo (máximo 50 caracteres).' };
-                }
-                if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(trimmed)) {
-                    return { valid: false, message: 'El nombre solo puede contener letras y espacios.' };
-                }
-                return { valid: true, name: trimmed };
-            }
-        };
-
-        // Gender Detection
-        const GenderDetection = {
-            feminineNames: [
-                'maria', 'ana', 'carmen', 'isabel', 'laura', 'patricia', 'elena', 'cristina', 
-                'andrea', 'claudia', 'natalia', 'paula', 'sandra', 'sonia', 'veronica', 'alicia',
-                'beatriz', 'carolina', 'diana', 'elisa', 'fernanda', 'gabriela', 'ines', 'julia',
-                'karen', 'lucia', 'marta', 'noelia', 'olga', 'pilar', 'raquel', 'silvia', 'teresa',
-                'valeria', 'ximena', 'yolanda', 'zaida', 'adriana', 'barbara', 'celia', 'dolores',
-                'eva', 'fatima', 'gloria', 'helena', 'irene', 'jessica', 'karla', 'leticia',
-                'monica', 'nuria', 'olivia', 'pamela', 'quetzal', 'rosa', 'sara', 'tania',
-                'ursula', 'vanessa', 'wendy', 'ximena', 'yadira', 'zoe', 'camila', 'sofia', 'valentina',
-                'emma', 'luciana', 'martina', 'julieta', 'renata', 'antonella', 'isabella', 'victoria'
-            ],
+                return trimmed.length >= 2 && trimmed.length <= 30 && /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(trimmed);
+            },
             
-            isFeminine(name) {
+            detectFeminineName(name) {
+                const feminineEndings = ['a', 'ia', 'ina', 'ela', 'isa', 'ana'];
                 const nameLower = name.toLowerCase().trim();
-                return this.feminineNames.includes(nameLower);
-            },
+                return feminineEndings.some(ending => nameLower.endsWith(ending));
+            }
+        };
+
+        // Generación de partículas
+        function createParticles() {
+            const container = document.getElementById('backgroundAnimation');
+            const particleCount = 20;
             
-            getTitle(name) {
-                return this.isFeminine(name) ? 'CyberExploradora' : 'CyberExplorador';
-            },
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Iniciar aplicación
+        function startApp() {
+            const nameInput = document.getElementById('nameInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const name = nameInput.value.trim();
             
-            getWelcomeMessage(name) {
-                const isFeminine = this.isFeminine(name);
-                return isFeminine ? 
-                    `¡Bienvenida, ${name}! Estamos emocionados de que comiences tu aventura en CyberZone.` :
-                    `¡Bienvenido, ${name}! Estamos emocionados de que comiences tu aventura en CyberZone.`;
+            if (!Security.validateName(name)) {
+                errorMessage.classList.add('show');
+                nameInput.focus();
+                return;
             }
-        };
-
-        // Navigation Management
-        const Navigation = {
-            showPage(pageId, buttonElement) {
-                // Check if user has entered name
-                if (!AppState.userName) {
-                    alert('Por favor, ingresa tu nombre en la página de inicio para acceder al contenido.');
-                    return;
-                }
-                
-                // Update pages
-                const pages = document.querySelectorAll('.page');
-                pages.forEach(page => {
-                    page.classList.remove('active');
-                    page.setAttribute('aria-hidden', 'true');
-                });
-                
-                const activePage = document.getElementById(pageId);
-                activePage.classList.add('active');
-                activePage.setAttribute('aria-hidden', 'false');
-                
-                // Update navigation buttons
-                const buttons = document.querySelectorAll('.nav-button');
-                buttons.forEach(btn => {
-                    btn.classList.remove('active');
-                    btn.removeAttribute('aria-current');
-                });
-                buttonElement.classList.add('active');
-                buttonElement.setAttribute('aria-current', 'page');
-                
-                // Update state
-                AppState.currentPage = pageId;
-                
-                // Update progress if returning to home
-                if(pageId === 'inicio') {
-                    Progress.updateBars();
-                }
-            }
-        };
-
-        // Progress Management
-        const Progress = {
-            updateBars() {
-                const progressModule1 = document.getElementById('progress-module1');
-                const progressModule2 = document.getElementById('progress-module2');
-                const progressModule3 = document.getElementById('progress-module3');
-                
-                if (progressModule1) {
-                    progressModule1.style.background = 'conic-gradient(var(--primary) 25%, rgba(255,255,255,0.1) 0%)';
-                }
-                if (progressModule2) {
-                    progressModule2.style.background = 'conic-gradient(var(--primary) 50%, rgba(255,255,255,0.1) 0%)';
-                }
-                if (progressModule3) {
-                    progressModule3.style.background = 'conic-gradient(var(--primary) 67%, rgba(255,255,255,0.1) 0%)';
-                }
-            }
-        };
-
-        // Particles Effect
-        const ParticlesEffect = {
-            init() {
-                const particlesContainer = document.getElementById('particles');
-                const particleCount = 15;
-                
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('particle');
-                    
-                    const size = Math.random() * 10 + 5;
-                    const left = Math.random() * 100;
-                    const delay = Math.random() * 15;
-                    const duration = Math.random() * 10 + 10;
-                    
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
-                    particle.style.left = `${left}%`;
-                    particle.style.animationDelay = `${delay}s`;
-                    particle.style.animationDuration = `${duration}s`;
-                    
-                    particlesContainer.appendChild(particle);
-                }
-            }
-        };
-
-        // Welcome Form Handler
-        const WelcomeForm = {
-            init() {
-                // Block main content until name is entered
-                document.getElementById('main-container').classList.add('content-blocked');
-                
-                // Check if user data exists
-                if (AppState.load() && AppState.userName) {
-                    this.completeWelcome(AppState.userName, false);
-                    return;
-                }
-                
-                // Setup form submission
-                const welcomeForm = document.getElementById('welcome-form');
-                welcomeForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.handleSubmit();
-                });
-                
-                // Add keyboard support for features
-                const features = document.querySelectorAll('.feature');
-                features.forEach((feature, index) => {
-                    feature.style.animationDelay = `${index * 0.5}s`;
-                });
-            },
             
-            handleSubmit() {
-                const nameInput = document.getElementById('user-name');
-                const validation = Security.validateName(nameInput.value);
-                
-                if (!validation.valid) {
-                    alert(validation.message);
-                    return;
-                }
-                
-                const safeName = Security.sanitizeInput(validation.name);
-                this.completeWelcome(safeName, true);
-            },
+            errorMessage.classList.remove('show');
             
-            completeWelcome(name, showMessage) {
-                AppState.userName = name;
-                AppState.save();
-                
-                // Update UI
-                const title = GenderDetection.getTitle(name);
-                document.getElementById('display-user-name').textContent = `${name} (${title})`;
-                
-                // Hide welcome page
-                document.getElementById('welcome-page').classList.add('hidden');
-                document.getElementById('welcome-page').setAttribute('aria-hidden', 'true');
-                
-                // Unblock main content
-                document.getElementById('main-container').classList.remove('content-blocked');
-                
-                // Show welcome message
-                if (showMessage) {
-                    const message = GenderDetection.getWelcomeMessage(name);
-                    alert(message);
-                }
-            }
-        };
+            const safeName = Security.sanitizeInput(name);
+            AppState.userName = safeName;
+            
+            const isFeminine = Security.detectFeminineName(safeName);
+            const title = isFeminine ? 'CyberExploradora' : 'CyberExplorador';
+            
+            document.getElementById('userName').textContent = title + ' ' + safeName;
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('mainContainer').style.display = 'flex';
+            
+            AppState.save();
+            createParticles();
+        }
 
-        // Keyboard Navigation Support
+        // Funciones globales
+        function showPage(pageId) {
+            Navigation.showPage(pageId);
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+        }
+
+        // Navegación por teclado
         document.addEventListener('keydown', (e) => {
-            // Allow Enter key to activate module cards
-            if (e.key === 'Enter' && e.target.classList.contains('module')) {
-                e.target.click();
-            }
-            
-            // Allow Enter key to activate module cards in detail pages
-            if (e.key === 'Enter' && (
-                e.target.classList.contains('module1-card') ||
-                e.target.classList.contains('module2-card') ||
-                e.target.classList.contains('module3-card')
-            )) {
-                e.target.click();
+            if (e.key === 'Escape') {
+                Navigation.closeSidebar();
             }
         });
 
-        // Initialize app on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            WelcomeForm.init();
-            ParticlesEffect.init();
-            Progress.updateBars();
+        // Enter en input
+        document.getElementById('nameInput')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                startApp();
+            }
+        });
+
+        // Cargar datos guardados
+        window.addEventListener('load', () => {
+            if (AppState.load() && AppState.userName) {
+                const isFeminine = Security.detectFeminineName(AppState.userName);
+                const title = isFeminine ? 'CyberExploradora' : 'CyberExplorador';
+                document.getElementById('userName').textContent = title + ' ' + AppState.userName;
+                document.getElementById('welcomeScreen').classList.add('hidden');
+                document.getElementById('mainContainer').style.display = 'flex';
+                createParticles();
+            }
         });
     </script>
 </body>
