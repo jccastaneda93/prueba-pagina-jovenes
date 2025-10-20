@@ -6,6 +6,12 @@
     <title>Aula Virtual: Seguridad Digital para Jóvenes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/estilo1.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
 </head>
 <body>
     <!-- NUEVAS ANIMACIONES DE FONDO -->
@@ -27,7 +33,7 @@
             </h1>
             <p class="welcome-subtitle">
                 ¡Bienvenido a tu aventura digital! 
-                <span class="emoji-animation emoji-3">🌟</span><br>
+                <span class="emoji-animation emoji-3"></span><br>
                 Para comenzar, ingresa tu nombre:
             </p>
             
@@ -466,28 +472,60 @@
                 
                 if (name) {
                     userName = name;
-                    
+
                     // Detectar si el nombre es femenino y actualizar el título
                     const esFemenino = esNombreFemenino(name);
                     const titulo = esFemenino ? 'CyberExploradora' : 'CyberExplorador';
-                    
+
                     // Actualizar el nombre en el perfil
                     document.getElementById('display-user-name').textContent = `${name} (${titulo})`;
-                    
+
                     // Ocultar la página de bienvenida
                     document.getElementById('welcome-page').classList.add('hidden');
-                    
+
                     // Desbloquear el contenido principal
                     document.getElementById('main-container').classList.remove('content-blocked');
-                    
-                    // Mostrar mensaje de bienvenida personalizado
+
+                    // Mostrar mensaje de bienvenida personalizado con SweetAlert2
                     const mensaje = esFemenino ? 
                         `¡Bienvenida, ${name}! Estamos emocionados de que comiences tu aventura en CyberZone.` :
                         `¡Bienvenido, ${name}! Estamos emocionados de que comiences tu aventura en CyberZone.`;
-                    alert(mensaje);
-                } else {
-                    alert('Por favor, ingresa tu nombre para continuar.');
-                }
+
+                    Swal.fire({
+                        title: '¡Hola!',
+                        text: mensaje,
+                        icon: 'success',
+                        confirmButtonText: '¡Vamos!',
+                        background: 'linear-gradient(135deg, #0a0f2d, #1a237e, #283593)', // azul gradiente
+                        color: '#ffffff',
+                        backdrop: `
+                            rgba(10,15,45,0.5)
+                            url("https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif") 
+                            left top
+                            no-repeat
+                        `,
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+    });
+
+} else {
+    Swal.fire({
+        icon: 'warning',
+        title: '¡Ups!',
+        text: 'Por favor, ingresa tu nombre para continuar.',
+        confirmButtonText: 'Ok',
+        background: '#0a0f2d',
+        color: '#ffffff',
+        showClass: {
+            popup: 'animate__animated animate__shakeX'
+        }
+    });
+}
+
             });
             
             // Agregar animación a los iconos de características
