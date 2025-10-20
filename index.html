@@ -6,11 +6,11 @@
     <title>Aula Virtual: Seguridad Digital para Jóvenes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/estilo1.css">
-    <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
-    <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <!-- Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 </head>
 <body>
@@ -471,60 +471,59 @@
                 const name = nameInput.value.trim();
                 
                 if (name) {
-                    userName = name;
+                        userName = name;
 
-                    // Detectar si el nombre es femenino y actualizar el título
-                    const esFemenino = esNombreFemenino(name);
-                    const titulo = esFemenino ? 'CyberExploradora' : 'CyberExplorador';
+                        // Detectar si el nombre es femenino y actualizar el título
+                        const esFemenino = esNombreFemenino(name);
+                        const titulo = esFemenino ? 'CyberExploradora' : 'CyberExplorador';
 
-                    // Actualizar el nombre en el perfil
-                    document.getElementById('display-user-name').textContent = `${name} (${titulo})`;
+                        // Actualizar el nombre en el perfil
+                        document.getElementById('display-user-name').textContent = `${name} (${titulo})`;
 
-                    // Ocultar la página de bienvenida
-                    document.getElementById('welcome-page').classList.add('hidden');
+                        // Ocultar la página de bienvenida
+                        document.getElementById('welcome-page').classList.add('hidden');
 
-                    // Desbloquear el contenido principal
-                    document.getElementById('main-container').classList.remove('content-blocked');
+                        // Desbloquear el contenido principal
+                        document.getElementById('main-container').classList.remove('content-blocked');
 
-                    // Mostrar mensaje de bienvenida personalizado con SweetAlert2
-                    const mensaje = esFemenino ? 
-                        `¡Bienvenida, ${name}! Estamos emocionados de que comiences tu aventura en CyberZone.` :
-                        `¡Bienvenido, ${name}! Estamos emocionados de que comiences tu aventura en CyberZone.`;
+                        // Mostrar mensaje de bienvenida personalizado con Toastify
+                        const mensaje = esFemenino ? 
+                            `¡Bienvenida, ${name}! Estamos emocionados de que comiences tu aventura en CyberZone.` :
+                            `¡Bienvenido, ${name}! Estamos emocionados de que comiences tu aventura en CyberZone.`;
 
-                    Swal.fire({
-                        title: '¡Hola!',
-                        text: mensaje,
-                        icon: 'success',
-                        confirmButtonText: '¡Vamos!',
-                        background: 'linear-gradient(135deg, #0a0f2d, #1a237e, #283593)', // azul gradiente
-                        color: '#ffffff',
-                        backdrop: `
-                            rgba(10,15,45,0.5)
-                            url("https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif") 
-                            left top
-                            no-repeat
-                        `,
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        }
-    });
-
-} else {
-    Swal.fire({
-        icon: 'warning',
-        title: '¡Ups!',
-        text: 'Por favor, ingresa tu nombre para continuar.',
-        confirmButtonText: 'Ok',
-        background: '#0a0f2d',
-        color: '#ffffff',
-        showClass: {
-            popup: 'animate__animated animate__shakeX'
-        }
-    });
-}
+                        Toastify({
+                            text: mensaje,
+                            duration: 5000,
+                            gravity: "top", // top o bottom
+                            position: "right", // left, center, right
+                            stopOnFocus: true, // pausa si pasa el mouse
+                            close: true, // botón de cerrar
+                            style: {
+                                background: "linear-gradient(135deg, #0a0f2d, #1a237e, #283593)",
+                                color: "white",
+                                fontWeight: "bold",
+                                borderRadius: "12px",
+                                padding: "15px",
+                                boxShadow: "0 0 20px rgba(0,0,0,0.5)"
+                            }
+                        }).showToast();
+                    } else {
+                        Toastify({
+                            text: 'Por favor, ingresa tu nombre para continuar.',
+                            duration: 4000,
+                            gravity: "top",
+                            position: "right",
+                            stopOnFocus: true,
+                            close: true,
+                            style: {
+                                background: "#ff4c4c",
+                                color: "white",
+                                fontWeight: "bold",
+                                borderRadius: "12px",
+                                padding: "15px",
+                            }
+                        }).showToast();
+                    }
 
             });
             
